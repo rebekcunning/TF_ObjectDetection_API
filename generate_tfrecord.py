@@ -1,6 +1,12 @@
-# Adapted from
-# https://github.com/datitran/raccoon_dataset/blob/master/generate_tfrecord.py
+"""
+Usage:
+  # From tensorflow/models/
+  # Create train data:
+  python generate_tfrecord.py --csv_input=data/train_labels.csv  --output_path=train.record
 
+  # Create test data:
+  python generate_tfrecord.py --csv_input=data/test_labels.csv  --output_path=test.record
+"""
 from __future__ import division
 from __future__ import print_function
 from __future__ import absolute_import
@@ -14,15 +20,19 @@ from PIL import Image
 from object_detection.utils import dataset_util
 from collections import namedtuple, OrderedDict
 
+flags = tf.app.flags
+flags.DEFINE_string('csv_input', '', 'Path to the CSV input')
+flags.DEFINE_string('output_path', '', 'Path to output TFRecord')
+FLAGS = flags.FLAGS
 
-# Add more class labels as needed, make sure to start at 1
+
+# TO-DO replace this with label map
 def class_text_to_int(row_label):
-    if row_label == 'wPawn':
+    if row_label == 'oncoming_car':
         return 1
-    if row_label == 'bPawn':
-        return 2 
-    else:
-        None
+    if row_label == 'not_coming':
+        return 2
+
 
 def split(df, group):
     data = namedtuple('data', ['filename', 'object'])
@@ -72,16 +82,17 @@ def create_tf_example(group, path):
 
 
 def main(_):
-    for i in ['test', 'train']:
-        writer = tf.python_io.TFRecordWriter(i+'.record')
-        path = os.path.join(os.getcwd(), 'images/'+i)
-        examples = pd.read_csv('data/'+i+'.csv')
-        grouped = split(examples, 'filename')
-        for group in grouped:
-            tf_example = create_tf_example(group, path)
-            writer.write(tf_example.SerializeToString())
-        writer.close()
-        print('Successfully created the '+i+ ' TFRecords')
+    writer = tf.python_io.TFRecordWriter(FLAGS.output_path)
+    path = 'data/bike/training'
+    examples = pd.read_csv(FLAGS.csv_input)
+    grouped = split(examples, 'filename')
+    for group in grouped:
+        tf_example = create_tf_example(group, path)
+        writer.write(tf_example.SerializeToString())
+
+    writer.close()
+    output_path = os.path.join(os.getcwd(), FLAGS.output_path)
+    print('Successfully created the TFRecords: {}'.format(output_path))
 
 
 if __name__ == '__main__':

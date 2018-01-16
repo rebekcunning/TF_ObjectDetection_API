@@ -1,9 +1,9 @@
 item {
   id: 1
-  name: 'wPawn'
+  name: 'oncoming_car'
 }
 
 item {
   id: 2
-  name: 'bPawn'
+  name: 'not_oncoming'
 }
