@@ -1,6 +1,4 @@
-# TensorFlow Object Detection API Tutorial
-
-This repository has the code from my [O'Reilly article](https://www.oreilly.com/ideas/object-detection-with-tensorflow)  published on October 25, 2017.
+# THIS REPO WAS FORKED FROM THE TensorFlow Object Detection API Tutorial found here https://github.com/wagonhelm/TF_ObjectDetection_API: 
 
 
 ## Required Packages
@@ -14,113 +12,21 @@ This repository has the code from my [O'Reilly article](https://www.oreilly.com/
 * [lxml](http://lxml.de/)
 * [protobuf](https://github.com/google/protobuf)
 
-There are two ways you can install these packages: by using Docker or by using native Python 3.5.
-
-### Using Docker
-
-1. Download and install [Docker](https://www.docker.com/).  If using Ubuntu 14.04/16.04 I wrote my own instructions for installing docker [here](https://github.com/wagonhelm/ML-Workstation-Installation-Guide#install-docker).
-
-2. Download and unzip [this entire repo from GitHub](https://github.com/wagonhelm/TF_ObjectDetection_API), either interactively, or by entering
-    ```bash
-    git clone https://github.com/wagonhelm/TF_ObjectDetection_API.git
-
-    ```
-
-3. Open your terminal and use `cd` to navigate into the directory of the repo on your machine
-    ```bash
-    cd TF_ObjectDetection_API
-    ```
+See my blogpost to learn about what I did: http://www.bekcunning.com/blog/CarBack
     
-4. To build the Dockerfile, enter
-    ```bash
-    docker build -t object_dockerfile -f dockerfile .
-    ```
-    If you get a permissions error on running this command, you may need to run it with `sudo`:
-    ```bash
-    sudo docker build -t object_dockerfile -f dockerfile .
-    ```
+### FILES
 
-5. Run Docker from the Dockerfile you've just built
-    ```bash
-    docker run -it -p 8888:8888 -p 6006:6006 object_dockerfile bash
-    ```
-    or
-    ```bash
-    sudo docker run -it -p 8888:8888 -p 6006:6006 object_dockerfile bash
-    ```
-    if you run into permission problems.
+1. ApproachingCars.ipynb
+Contains the steps required to run the car detector and construct a video from the results.
 
-6. Install TensorFlow Object Detection API
-    ```bash
-    cd models/research/
-    protoc object_detection/protos/*.proto --python_out=.
-    export PYTHONPATH=$PYTHONPATH:`pwd`:`pwd`/slim
-    cd ..
-    cd ..
-    ```
+2. json_to_csv.py and xml_to_csv.py
+Contain code to convert the image attribute files to csv which will be used to generate tfrecords
 
-7. Launch Jupyter and Tensorboard both by using tmux 
-    ```bash
-    tmux
-    
-    jupyter notebook --allow-root
-    ```
-    `Press CTL+B` then `C` to open a new tmux window, then
-    
-    ```bash
-    tensorboard --logdir='data'
-    ```
-    To switch windows `Press CTL+B` then `window #` 
- 
-    Once both jupyter and tensorboard are running, using your browser, navigate to the URLs shown in the terminal output if those don't work  try http://localhost:8888/ for Jupyter Notebook and http://localhost:6006/ for Tensorboard.  I had issues with using TensorBoard with Firefox when launched from Docker.
-    
-### Using Native Python 3
+3. split_labels.ipynb
+Creates test and training data from our complete set of images
 
-1. Install system requirements
+4. generate_tfrecord.py
+python code required to generate tfrecords used during training of the model
 
-```bash
-sudo apt-get install -y git-core wget protobuf-compiler 
-```
-2. Download and unzip [this entire repo from GitHub](https://github.com/wagonhelm/TF_ObjectDetection_API), either interactively, or by entering
-
-```bash
-git clone https://github.com/wagonhelm/TF_ObjectDetection_API.git
-```
-
-3. Install Python Requirement
-
-```bash
-cd TF_ObjectDetection_API
-# Requires sudo if not in a virtual environment
-pip3 install -r requirements.txt
-pip3 install tensorflow jupyter
-```
-4. Clone TensorFlow Models Into Repository Directory and Install Object Detection API
-
-```bash
-cd TF_ObjectDetection_API
-git clone https://github.com/tensorflow/models.git
-```
-
-You will have to run this command every time you close your terminal unless you add the the path to slim to your `.bashrc` file
-
-```bash
-cd models/research/
-protoc object_detection/protos/*.proto --python_out=.
-export PYTHONPATH=$PYTHONPATH:`pwd`:`pwd`/slim
-cd ..
-cd ..
-```
-
-4. Launch Jupyter
-```bash
-jupyter notebook
-```
-5. Launch Tensorboard In New Terminal
-```bash
-tensorboard --logdir='data'
-```
-Once both jupyter and tensorboard are running, using your browser, navigate to the URLs shown in the terminal output if those don't work  try http://localhost:8888/ for Jupyter Notebook and http://localhost:6006/ for Tensorboard.
-
-
-    
+5. data/
+this folder contains the moodel config and file for labelling the desired classes.
