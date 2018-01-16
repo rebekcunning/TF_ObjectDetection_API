@@ -1,4 +1,4 @@
-# THIS REPO WAS FORKED FROM THE TensorFlow Object Detection API Tutorial found here https://github.com/wagonhelm/TF_ObjectDetection_API: 
+# This repo was forked from TensorFlow Object Detection API Tutorial found here https://github.com/wagonhelm/TF_ObjectDetection_API: 
 
 
 ## Required Packages
@@ -12,7 +12,7 @@
 * [lxml](http://lxml.de/)
 * [protobuf](https://github.com/google/protobuf)
 
-See my blogpost to learn about what I did: http://www.bekcunning.com/blog/CarBack
+See my blog post to learn about what I did: http://www.bekcunning.com/blog/car-back
     
 ### FILES
 
