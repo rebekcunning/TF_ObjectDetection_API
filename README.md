@@ -1,4 +1,6 @@
-# This repo was forked from TensorFlow Object Detection API Tutorial found here https://github.com/wagonhelm/TF_ObjectDetection_API: 
+# This repo was forked from TensorFlow Object Detection API Tutorial found here 
+
+https://github.com/wagonhelm/TF_ObjectDetection_API: 
 
 
 ## Required Packages
